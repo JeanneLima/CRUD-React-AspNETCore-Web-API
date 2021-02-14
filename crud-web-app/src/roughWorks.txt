@@ -1,0 +1,36 @@
+Appp Structure
+--------------
+
+src
++------ actions
+|      |
+|      |-- api.js (handle all http requests)
+|      |-- candidate.js (Redux actions and action creators)
+|      |-- store.js (configure redux store)
+
++------ components
+|      |
+|      |-- candidateForm.js (form operations) - child
+|      |-- cadidate.js (list of records) - parent
+|      |-- useForm.js (handle common form operations)
+
++------ reducers
+|      |
+|      |-- cadidate.js
+|      |-- index.js
+|      
+|-- App.js      
+|-- index.js
+|-- index.css
+
+Redux, react-redux, redux-thunk
+|-- action (create, update, delete, etc... data)
+|-- reducers
+|-- store
+
+component -> dispatch(action) -> reducer -> component
+
+Redux-Thunk is a middleware package that makes it possible to have synchronous API calls
+
+//Alt + Z breaks line in VS Code
+//Alt + Click (or arrow bottom) edits different places with the same code
