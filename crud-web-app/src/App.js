@@ -4,11 +4,14 @@ import "./App.css";
 import { store } from "./actions/store";
 import { Provider } from "react-redux";
 import Candidate from "./components/Cadidates";
+import { Container } from "@material-ui/core";
 
 function App() {
   return (
     <Provider store={store}>
-      <Candidate />
+      <Container maxWidth="lg">
+        <Candidate />
+      </Container>
     </Provider>
   );
 }
