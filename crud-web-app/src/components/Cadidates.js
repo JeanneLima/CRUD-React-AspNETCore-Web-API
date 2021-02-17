@@ -17,6 +17,7 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CandidateForm from "./CadidateForm";
+import { useToasts } from "react-toast-notifications";
 
 const styles = (theme) => ({
   root: {
@@ -41,6 +42,16 @@ const Candidates = ({ classes, ...props }) => {
   useEffect(() => {
     props.fetchAllCandidates();
   }, []); //componentDidMount
+
+  //Toast messages
+  const { addToast } = useToasts();
+
+  const onDelete = (id) => {
+    if (window.confirm("Are you sure to delete this record?"))
+      props.deleteCandidates(id, () =>
+        addToast("Deleted sucessfully.", { appearance: "info" })
+      );
+  };
 
   return (
     <Paper className={classes.paper} elevation={3}>
@@ -75,7 +86,12 @@ const Candidates = ({ classes, ...props }) => {
                           />
                         </Button>
                         <Button>
-                          <DeleteIcon color="secondary" />
+                          <DeleteIcon
+                            color="secondary"
+                            onClick={() => {
+                              onDelete(record.id);
+                            }}
+                          />
                         </Button>
                       </ButtonGroup>
                     </TableRow>
@@ -97,6 +113,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionToProps = {
   fetchAllCandidates: actions.fetchAll,
+  deleteCandidates: actions.Delete,
 };
 
 //Connect is a function that returns another function as the parameter (in case, the component)
