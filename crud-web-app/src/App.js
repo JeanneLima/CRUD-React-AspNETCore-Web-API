@@ -5,13 +5,17 @@ import { store } from "./actions/store";
 import { Provider } from "react-redux";
 import Candidate from "./components/Cadidates";
 import { Container } from "@material-ui/core";
+import { ToastProvider } from "react-toast-notifications";
 
 function App() {
   return (
     <Provider store={store}>
-      <Container maxWidth="lg">
-        <Candidate />
-      </Container>
+      <ToastProvider autoDismiss>
+        {" "}
+        <Container maxWidth="lg">
+          <Candidate />
+        </Container>
+      </ToastProvider>
     </Provider>
   );
 }

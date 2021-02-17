@@ -13,6 +13,7 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import useForm from "./useForm";
+import { useToasts } from "react-toast-notifications";
 
 const styles = (theme) => ({
   root: {
@@ -40,6 +41,9 @@ const initialFieldValues = {
 };
 
 const CandidateForm = ({ classes, ...props }) => {
+  //Toast messages
+  const { addToast } = useToasts();
+
   //vallidate() - it checks all fields
   //vallidate({fullName: 'Josh'}) - it checks specific field
   const validate = (fieldValues = values) => {
@@ -81,16 +85,16 @@ const CandidateForm = ({ classes, ...props }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    // console.log(values);
+
     if (validate()) {
-      if (props.currentId == 0)
-        props.createCandidates(values, () => {
-          window.alert("Inserted.");
-        });
-      else
-        props.updateCandidates(props.currentId, values, () => {
-          window.alert("Updated.");
-        });
+      const onSuccess = () => {
+        resetForm();
+        addToast("Submitted sucessfully.", { appearance: "success" });
+      };
+
+      if (props.currentId == 0) props.createCandidates(values, onSuccess);
+      else props.updateCandidates(props.currentId, values, onSuccess);
     }
   };
 
