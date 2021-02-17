@@ -41,7 +41,7 @@ const Candidates = ({ classes, ...props }) => {
   //UseEffect has a callback function that is called everytime the state changes
   useEffect(() => {
     props.fetchAllCandidates();
-  }, []); //componentDidMount
+  }, [props]); //componentDidMount
 
   //Toast messages
   const { addToast } = useToasts();
