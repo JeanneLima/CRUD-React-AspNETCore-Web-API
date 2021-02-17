@@ -43,7 +43,7 @@ const CandidateForm = ({ classes, ...props }) => {
   //vallidate() - it checks all fields
   //vallidate({fullName: 'Josh'}) - it checks specific field
   const validate = (fieldValues = values) => {
-    let temp = {};
+    let temp = { ...errors };
 
     if ("fullName" in fieldValues)
       temp.fullName = fieldValues.fullName ? "" : "This field is required";
