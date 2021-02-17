@@ -2,6 +2,7 @@ import axios from "axios";
 
 const baseUrl = "http://localhost:53014/api/";
 
+// const APICandidate = (url = baseUrl + "Candidate/") => ({
 export default {
   Candidate(url = baseUrl + "Candidate/") {
     return {
@@ -13,3 +14,5 @@ export default {
     };
   },
 };
+
+// export default APICandidate;

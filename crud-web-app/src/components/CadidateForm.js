@@ -93,8 +93,14 @@ const CandidateForm = ({ classes, ...props }) => {
         addToast("Submitted sucessfully.", { appearance: "success" });
       };
 
-      if (props.currentId == 0) props.createCandidates(values, onSuccess);
-      else props.updateCandidates(props.currentId, values, onSuccess);
+      console.log("values:", values);
+      console.log("currentId:", props.currentId);
+
+      if (props.currentId === 0) {
+        props.createCandidates(values, onSuccess);
+      } else {
+        props.updateCandidates(props.currentId, values, onSuccess);
+      }
     }
   };
 
@@ -151,8 +157,8 @@ const CandidateForm = ({ classes, ...props }) => {
               <MenuItem value="A-">A -ve</MenuItem>
               <MenuItem value="B+">B +ve</MenuItem>
               <MenuItem value="B-">B -ve</MenuItem>
-              <MenuItem value="AB">AB +ve</MenuItem>
-              <MenuItem value="AB">AB -ve</MenuItem>
+              <MenuItem value="AB+">AB +ve</MenuItem>
+              <MenuItem value="AB-">AB -ve</MenuItem>
               <MenuItem value="O+">O +ve</MenuItem>
               <MenuItem value="O-">O -ve</MenuItem>
             </Select>
