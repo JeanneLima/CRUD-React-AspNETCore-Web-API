@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import * as actions from "./../actions/candidate";
 import {
   FormControl,
   Grid,
@@ -68,18 +70,38 @@ const CandidateForm = ({ classes, ...props }) => {
     if (fieldValues == values) return Object.values(temp).every((x) => x == "");
   };
 
-  const { values, setValues, errors, setErrors, handleInputChange } = useForm(
-    initialFieldValues,
-    validate
-  );
+  const {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    handleInputChange,
+    resetForm,
+  } = useForm(initialFieldValues, validate, props.setCurrentId);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
     if (validate()) {
-      window.alert("Validation succeeded");
+      if (props.currentId == 0)
+        props.createCandidates(values, () => {
+          window.alert("Inserted.");
+        });
+      else
+        props.updateCandidates(props.currentId, values, () => {
+          window.alert("Updated.");
+        });
     }
   };
+
+  useEffect(() => {
+    if (props.currentId != 0) {
+      setValues({
+        ...props.candidateList.find((x) => x.id == props.currentId),
+      });
+      setErrors({});
+    }
+  }, [props.currentId]);
 
   return (
     <form
@@ -169,7 +191,11 @@ const CandidateForm = ({ classes, ...props }) => {
             >
               Submit
             </Button>
-            <Button variant="contained" className={classes.smMargin}>
+            <Button
+              variant="contained"
+              className={classes.smMargin}
+              onClick={resetForm}
+            >
               Reset
             </Button>
           </div>
@@ -179,4 +205,17 @@ const CandidateForm = ({ classes, ...props }) => {
   );
 };
 
-export default withStyles(styles)(CandidateForm);
+//Connect parameters
+const mapStateToProps = (state) => ({
+  candidateList: state.Candidate.list,
+});
+
+const mapActionToProps = {
+  updateCandidates: actions.update,
+  createCandidates: actions.create,
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionToProps
+)(withStyles(styles)(CandidateForm));

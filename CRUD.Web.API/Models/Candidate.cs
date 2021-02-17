@@ -15,10 +15,10 @@ namespace CRUD.Web.API.Models
         [Column(TypeName = "nvarchar(100)")]
         public string fullName { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
+        [Column(TypeName = "nvarchar(13)")]
         public string mobile { get; set; }
 
-        [Column(TypeName = "nvarchar(6)")]
+        [Column(TypeName = "nvarchar(100)")]
         public string email { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]

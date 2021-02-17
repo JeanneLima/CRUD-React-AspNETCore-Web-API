@@ -10,8 +10,12 @@ import {
   TableHead,
   TableRow,
   TableCell,
+  ButtonGroup,
+  Button,
   withStyles,
 } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 import CandidateForm from "./CadidateForm";
 
 const styles = (theme) => ({
@@ -31,7 +35,7 @@ const styles = (theme) => ({
 //const {clases, props} = props
 
 const Candidates = ({ classes, ...props }) => {
-  // const [(state), set(state)] = useState(initialState);
+  const [currentId, setCurrentId] = useState(0);
 
   //UseEffect has a callback function that is called everytime the state changes
   useEffect(() => {
@@ -42,7 +46,7 @@ const Candidates = ({ classes, ...props }) => {
     <Paper className={classes.paper} elevation={3}>
       <Grid container>
         <Grid item xs={6}>
-          <CandidateForm />
+          <CandidateForm {...{ currentId, setCurrentId }} />
         </Grid>
         <Grid item xs={6}>
           <TableContainer>
@@ -61,6 +65,19 @@ const Candidates = ({ classes, ...props }) => {
                       <TableCell>{record.fullName}</TableCell>
                       <TableCell>{record.mobile}</TableCell>
                       <TableCell>{record.bloodGroup}</TableCell>
+                      <ButtonGroup variant="text">
+                        <Button>
+                          <EditIcon
+                            color="primary"
+                            onClick={() => {
+                              setCurrentId(record.id);
+                            }}
+                          />
+                        </Button>
+                        <Button>
+                          <DeleteIcon color="secondary" />
+                        </Button>
+                      </ButtonGroup>
                     </TableRow>
                   );
                 })}
@@ -73,7 +90,7 @@ const Candidates = ({ classes, ...props }) => {
   );
 };
 
-//Connect parameter
+//Connect parameters
 const mapStateToProps = (state) => ({
   candidateList: state.Candidate.list,
 });
@@ -87,3 +104,10 @@ export default connect(
   mapStateToProps,
   mapActionToProps
 )(withStyles(styles)(Candidates));
+
+// fullName: "Lucia Hernandez",
+// mobile: "21990000000",
+// email: "lucia.hernandez@gmail.com",
+// age: "43",
+// bloodGroup: "A+",
+// address: "Rua Estevão Silva, 20, Cachambi - RJ, Rio de Janeiro - 20770-460"
