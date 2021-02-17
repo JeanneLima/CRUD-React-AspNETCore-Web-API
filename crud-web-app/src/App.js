@@ -11,7 +11,6 @@ function App() {
   return (
     <Provider store={store}>
       <ToastProvider autoDismiss>
-        {" "}
         <Container maxWidth="lg">
           <Candidate />
         </Container>
